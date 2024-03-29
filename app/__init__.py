@@ -16,7 +16,7 @@ class App:
         load_dotenv()
         self.initialize_data_directory() # New method I added, to account for CSV storing calculator calculations history.
         self.settings = self.load_environment_variables()
-        self.settings.setdefault('ENVIRONMENT', 'PRODUCTION')
+        self.settings.setdefault('ENVIRONMENT', 'DEVELOPMENT')
         self.command_handler = CommandHandler()
 
     def initialize_data_directory(self):
@@ -87,25 +87,20 @@ class App:
         self.load_plugins()
         print("Type 'exit' to exit.")
         while True:  #REPL Read, Evaluate, Print, Loop
-            self.command_handler.execute_command(input(">>> ").strip())
-        logging.info("Application started. Type 'exit' to exit.")
-        try:
-            while True:
-                cmd_input = input(">>> ").strip()
-                if cmd_input.lower() == 'exit':
+            cmd_input = self.get_command_input()
+            if cmd_input.lower() == 'exit':
                     logging.info("Application exit.")
-                    sys.exit(0)  # Use sys.exit(0) for a clean exit, indicating success.
-                try:
-                    self.command_handler.execute_command(cmd_input)
-                except KeyError:  # Assuming execute_command raises KeyError for unknown commands
-                    logging.error(f"Unknown command entered: {cmd_input}")
-                    sys.exit(1)  # Use a non-zero exit code to indicate failure or incorrect command.
-        except KeyboardInterrupt:
-            logging.info("Calculator application has been interrupted and is now exiting gracefully.")
-            sys.exit(0)  # Assuming a KeyboardInterrupt should also result in a clean exit.
-        finally:
-            logging.info("Calculator application is now shutdown.")
+                    sys.exit(0)
+            self.execute_command(cmd_input)
 
+    def get_command_input(self):
+            return  input(">>> ").strip()
+    
+    def execute_command(self, cmd_input):
+        try: 
+            self.command_handler.execute_command(cmd_input)
+        except KeyError:
+            logging.error(f"Unknown command entered: {cmd_input}")
 
 if __name__ == "__main__":
     app = App()
