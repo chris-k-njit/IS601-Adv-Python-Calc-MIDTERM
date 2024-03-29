@@ -14,7 +14,7 @@ class App:
         os.makedirs('logs', exist_ok=True)
         self.configure_logging()
         load_dotenv()
-        self.initialize_data_director() # New method I added, to account for CSV storing calculator calculations history.
+        self.initialize_data_directory() # New method I added, to account for CSV storing calculator calculations history.
         self.settings = self.load_environment_variables()
         self.settings.setdefault('ENVIRONMENT', 'PRODUCTION')
         self.command_handler = CommandHandler()
