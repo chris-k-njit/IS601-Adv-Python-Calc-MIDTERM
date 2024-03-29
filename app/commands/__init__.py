@@ -35,9 +35,11 @@ class CommandHandler:
         :param command: The command instance to register.
         """
         if command_name in self._commands:
-            raise ValueError(f"Command '{command_name}' is already registered.")
+            logging.warning(f"Sorry, this calculator command has been registered already. Overwriting this now.")
+        else: 
+            logging.info(f"Now registering calculator '{command_name}'.")
         self._commands[command_name] = command
-
+        
     def execute_command(self, input_str):
         parts = input_str.split()
         command_name = parts[0]
@@ -45,9 +47,13 @@ class CommandHandler:
         
         command = self._commands.get(command_name)
         if command:
-            command.execute(*args)  # Pass arguments to execute
+            try:
+                command.execute(*args)  # Pass arguments to execute
+                logging.info(f"Calcualtor Command '{command_name}' was successfully executed.")
+            except Exception as e:
+                logging.error(f"Oops, there was an error executing command '{command_name}' : {e}.")
         else:
-            print(f"No such command: '{command_name}'")
+            logging.error(f"There is no calculator command for this: '{command_name}'.")
 
     def list_commands(self) -> List[str]:
         """
