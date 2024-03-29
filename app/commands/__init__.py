@@ -35,7 +35,7 @@ class CommandHandler:
         :param command: The command instance to register.
         """
         if command_name in self._commands:
-            logging.warning(f"Sorry, this calculator command has been registered already. Overwriting this now.")
+            logging.warning(f"Sorry, this calculator command has been registered already. Rewriting this command now...")
         else: 
             logging.info(f"Now registering calculator '{command_name}'.")
         self._commands[command_name] = command
