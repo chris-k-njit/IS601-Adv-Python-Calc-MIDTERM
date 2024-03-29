@@ -19,16 +19,8 @@ class App:
         self.settings.setdefault('ENVIRONMENT', 'PRODUCTION')
         self.command_handler = CommandHandler()
 
-    def configure_logging(self):
-        logging_conf_path = 'logging.conf'
-        if os.path.exists(logging_conf_path):
-            logging.config.fileConfig(logging_conf_path, disable_existing_loggers=False)
-        else:
-            logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-        logging.info("Logging configured.")
-
-    def initialize_data_dictionary(self):
-        data_dir = os.getenv('DATA_DIR', '/data')
+    def initialize_data_directory(self):
+        data_dir = os.getenv('DATA_DIR', './data')
         csv_filename = os.getenv('CALCULATIONS_HISTORY_CSVFILE', 'all_calculator_calculations.csv')
         csv_filepath = os.path.join(data_dir, csv_filename)
 
@@ -41,6 +33,14 @@ class App:
         
         logging.info(f"Data directory for Chris Calculator Midterm Project '{data_dir}' and the CSV file for this Midterm Project '{csv_filename}' have been initialized.")
     
+    def configure_logging(self):
+        logging_conf_path = 'logging.conf'
+        if os.path.exists(logging_conf_path):
+            logging.config.fileConfig(logging_conf_path, disable_existing_loggers=False)
+        else:
+            logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+        logging.info("Logging configured.")
+
     def load_environment_variables(self):
         settings = {key: value for key, value in os.environ.items()}
         logging.info("Environment variables loaded.")
