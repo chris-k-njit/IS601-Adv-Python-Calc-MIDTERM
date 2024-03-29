@@ -11,9 +11,7 @@ ignore=/usr/lib/python3/dist-packages/six.py
 disable= unused-argument,
          line-too-long,
          redefined-outer-name,
-         missing-module-docstring,
-         missing-function-docstring
-
+         
 [REPORTS]
 # Set the output format. Available formats: text, parseable, colorized, json, msvs (visual studio) and html
 output-format=colorized
