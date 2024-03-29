@@ -3,6 +3,14 @@ import pytest
 from app import App
 from unittest.mock import patch, mock_open
 
+class ListHandler(logging.Handler):
+    def __init__(self):
+        super().__init__()
+        self.log_records = []
+    
+    def emit(self, record):
+        self.log_records.append(record)
+
 @pytest.fixture
 def app():
     app_instance = App()
@@ -40,7 +48,9 @@ def test_initialize_data_directory(app, tmp_path):
 def test_app_start_unknown_command(app):
     """Test handling and logging of an unknown command."""
     app_instance, log_handler = app
-    with patch('builtins.input', return_value='unknown_command'), \
+    # Use an iterator to simulate first entering 'unknown_command', then 'exit'
+    input_values = iter(['unknown_command', 'exit'])
+    with patch('builtins.input', lambda _: next(input_values)), \
          pytest.raises(SystemExit):
         app_instance.start()
     assert any("An unknown command has been entered: unknown_command" in record.msg for record in log_handler.log_records)
