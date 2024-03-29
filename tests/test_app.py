@@ -66,11 +66,9 @@ def test_get_environment_variable(app):
 
 def test_app_start_exit_command(app):
     app_instance, log_handler = app
-    with patch.object(app_instance, 'get_command_input', side_effect=['exit']), \
-         pytest.raises(SystemExit) as exit_exception:
+    with patch('builtins.input', return_value='exit'), pytest.raises(SystemExit) as exit_exception:
         app_instance.start()
 
-    assert exit_exception.type == SystemExit
     assert exit_exception.value.code == 0
 
     # Optional: Check for clean exit logs if your application logs on exit.
@@ -81,4 +79,3 @@ def test_app_start_exit_command(app):
         assert any(record.levelname == 'WARNING' and expected_warning in record.message for record in log_handler.log_records), "Expected warning message not found."
     except AssertionError:
         pass
-    
