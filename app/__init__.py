@@ -1,4 +1,5 @@
 import os
+import csv
 import pkgutil
 import importlib
 import sys
@@ -13,6 +14,7 @@ class App:
         os.makedirs('logs', exist_ok=True)
         self.configure_logging()
         load_dotenv()
+        self.initialize_data_director() # New method I added, to account for CSV storing calculator calculations history.
         self.settings = self.load_environment_variables()
         self.settings.setdefault('ENVIRONMENT', 'PRODUCTION')
         self.command_handler = CommandHandler()
@@ -25,6 +27,20 @@ class App:
             logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
         logging.info("Logging configured.")
 
+    def initialize_data_dictionary(self):
+        data_dir = os.getenv('DATA_DIR', '/data')
+        csv_filename = os.getenv('CALCULATIONS_HISTORY_CSVFILE', 'all_calculator_calculations.csv')
+        csv_filepath = os.path.join(data_dir, csv_filename)
+
+        os.makedirs(data_dir, exist_ok=True)
+
+        headers = ['Calculator Calculation', 'Calculator Result'] 
+        with open(csv_filepath, 'w', newline='') as csvfile:
+            csvwriter = csv.writer(csvfile)
+            csvwriter.writerow(headers)
+        
+        logging.info(f"Data directory '{data_dir}' and CSV file '{csv_filename}' have been initialized.")
+    
     def load_environment_variables(self):
         settings = {key: value for key, value in os.environ.items()}
         logging.info("Environment variables loaded.")
