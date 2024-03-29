@@ -53,19 +53,20 @@ def test_app_start_unknown_command(app):
     with patch('builtins.input', lambda _: next(input_values)), \
          pytest.raises(SystemExit):
         app_instance.start()
-    assert any("An unknown command has been entered: unknown_command" in record.msg for record in log_handler.log_records)
+    assert any("There is no calculator command for this: 'unknown_command'" in record.msg for record in log_handler.log_records)
 
 def test_get_environment_variable(app):
     """Test retrieval of environment variables."""
     expected_env = "PRODUCTION"
-    assert app.get_environment_variable('ENVIRONMENT') == expected_env
+    app_instance, log_handler = app
+    assert app_instance.get_environment_variable('ENVIRONMENT') == expected_env
 
 def test_app_start_exit_command(app):
     """Test that the REPL exits correctly on 'exit' command."""
     app_instance, log_handler = app
-    with patch('builtins.input', return_value='exit'), pytest.raises(SystemExit) as ex:
+    with pytest.raises(SystemExit) as ex:
         app_instance.start()
-    assert ex.value.code == 0
+    assert str(ex.value) == "Now exiting the calculator program."
 
     # Optional: Check for clean exit logs if your application logs on exit.
     # Ensures no unexpected errors or warnings are logged during shutdown.

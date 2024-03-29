@@ -39,7 +39,7 @@ class App:
             logging.config.fileConfig(logging_conf_path, disable_existing_loggers=False)
         else:
             logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-        logging.info("Logging configured.")
+        logging.info("Logging has successfully configured.")
 
     def load_environment_variables(self):
         settings = {key: value for key, value in os.environ.items()}
