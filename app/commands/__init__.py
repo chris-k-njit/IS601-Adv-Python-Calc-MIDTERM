@@ -1,5 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import Dict, Any, List
+import logging
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 class Command(ABC):
     """
