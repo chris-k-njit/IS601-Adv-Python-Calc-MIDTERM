@@ -39,7 +39,7 @@ class App:
             csvwriter = csv.writer(csvfile)
             csvwriter.writerow(headers)
         
-        logging.info(f"Data directory '{data_dir}' and CSV file '{csv_filename}' have been initialized.")
+        logging.info(f"Data directory for Chris Calculator Midterm Project '{data_dir}' and the CSV file for this Midterm Project '{csv_filename}' have been initialized.")
     
     def load_environment_variables(self):
         settings = {key: value for key, value in os.environ.items()}
