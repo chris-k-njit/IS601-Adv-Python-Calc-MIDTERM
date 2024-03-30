@@ -2,7 +2,9 @@
 Advanced Calculator Project for Midterm in IS601. 
 
 ## Demonstrate Calculator Operations - From Simple to some Statistical
-Details added later...
+1.  Showing that the calculator works as anticipated within the command line for a user.
+
+![calculater operations](images/calcoperationscli.png)
 
 ## Demonstrate History Management with Pandas
 More details soon...
