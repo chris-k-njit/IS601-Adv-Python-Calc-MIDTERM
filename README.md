@@ -122,4 +122,4 @@ class CommandHandler:
 ```
 
 ## Video Walkthrough - 5 Minute (Or Fewer) Video Walkthrough of my Code 
-Posting Video tonight, after all tests passed and code is complete.
+[Midterm](https://youtu.be/v4kBZXJ74lo)
