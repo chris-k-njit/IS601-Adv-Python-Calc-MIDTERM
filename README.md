@@ -10,7 +10,7 @@ More details soon...
 ## Ensure Environmental Variables are correctly configured 
 1.  As seen in image, was able to correctly configure my env variables.
 
-![ENV Variables](/images/ENV_VAR_SETUP.png)
+![ENV Variables](images/ENV_VAR_SETUP.png)
 
 
 ## Using Logging to Record Interactions within Calculator
