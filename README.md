@@ -35,11 +35,18 @@ class GreetCommand(Command):
         logging.debug("Greet needs debugging")
         print("Hello! Welcome to Chris' the calculator. Type 'help' to see available commands.")
 ```
-- Factory Method
-More details soon...
+- Factory Method - Including my load_plugins command, as commands are encapsulated in a method that can be determined dynamically.
+```python
+def load_plugins(self):
+        # Assuming this method dynamically loads plugin modules
+        plugins_package = 'app.plugins'
+        for _, plugin_name, is_pkg in pkgutil.iter_modules([plugins_package.replace('.', '/')]):
+            if is_pkg:
+                plugin_module = importlib.import_module(f'{plugins_package}.{plugin_name}')
+                self.register_plugin_commands(plugin_module)
+```
 
-- Facade Pattern
-1. Including my app class here, as I think this is a good example for this design pattern.
+- Facade Pattern - Including my app class here, as this class provides a simplifed interface for a sophisticated subsystem, thus, making the subsystem that much more easy to use.
 ```python
 class App:
     def __init__(self): # Constructor
