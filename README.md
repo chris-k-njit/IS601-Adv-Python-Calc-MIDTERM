@@ -21,8 +21,21 @@ More details soon...
 
 ## Demonstrate Design Patterns
 - Command Pattern
-More details soon...
+    a. All of the commands from greet, multiply, addition, subtraction, divide and the others demonstrate command pattern as they encapsulate a request as an object.
+```python
+import logging
+from app.commands import Command
 
+class GreetCommand(Command):
+    def __init__(self):
+        super().__init__()
+        self.name="greet"
+    
+    def execute(self):
+        logging.info("Hello! Welcome to Chris' the calculator. Type 'help' to see available commands.")
+        logging.debug("Greet needs debugging")
+        print("Hello! Welcome to Chris' the calculator. Type 'help' to see available commands.")
+```
 - Factory Method
 More details soon...
 
