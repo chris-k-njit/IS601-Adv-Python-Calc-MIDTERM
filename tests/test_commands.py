@@ -56,7 +56,7 @@ class TestCalculatorCommands(unittest.TestCase):
     @patch('builtins.print')
     def test_help_command(self, mock_print):
         HelpCommand().execute()
-        mock_print.assert_called_with("Available commands here are: addition, subtraction, multiplication, division, squareroot, greet, bye, caffeine, help\nUse 'exit' to quit the application.")
+        mock_print.assert_called_with("Available commands here are: addition, subtraction, multiplication, division, squareroot, greet, goodbye, caffeine, help\nUse 'exit' to quit the application.")
 
 # if __name__ == '__main__':
 #     unittest.main()
