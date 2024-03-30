@@ -64,7 +64,12 @@ class App:
 More details soon...
 
 - Strategy Pattern
-More details soon...
+1. CommandHandler class here will execute commands, after taking in the user input.
+```python
+class CommandHandler:
+    def execute_command(self, cmd_input):
+        # Selects and executes the command (strategy) based on input
+```
 
 ## LBYL and EAFP
 1.  LBYL = "Look Before You Leap"
