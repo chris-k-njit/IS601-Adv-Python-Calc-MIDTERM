@@ -3,6 +3,7 @@ import csv
 import pkgutil
 import importlib
 import sys
+import inspect
 from app.commands import Command, CommandHandler
 from dotenv import load_dotenv
 import logging
@@ -49,37 +50,20 @@ class App:
         return self.settings.get(env_var, None)
 
     def load_plugins(self):
-        # Dynamically load all plugins in the plugins directory
+        # Assuming this method dynamically loads plugin modules
         plugins_package = 'app.plugins'
         for _, plugin_name, is_pkg in pkgutil.iter_modules([plugins_package.replace('.', '/')]):
-            if is_pkg:  # Ensure it's a package
-                plugin_module = importlib.import_module(f'{plugins_package}.{plugin_name}')
-                for item_name in dir(plugin_module):
-                    item = getattr(plugin_module, item_name)
-                    try:
-                        if issubclass(item, (Command)):  # Assuming a BaseCommand class exists
-                            self.command_handler.register_command(plugin_name, item())
-                    except TypeError:
-                        continue  # If item is not a class or unrelated class, just ignore
-        plugins_path = plugins_package.replace('.', '/')
-        if not os.path.exists(plugins_path):
-            logging.warning(f"Plugins directory '{plugins_path}' not found.")
-            return
-        for _, plugin_name, is_pkg in pkgutil.iter_modules([plugins_path]):
             if is_pkg:
-                try:
-                    plugin_module = importlib.import_module(f'{plugins_package}.{plugin_name}')
-                    self.register_plugin_commands(plugin_module, plugin_name)
-                except ImportError as e:
-                    logging.error(f"Error importing plugin {plugin_name}: {e}")
+                plugin_module = importlib.import_module(f'{plugins_package}.{plugin_name}')
+                self.register_plugin_commands(plugin_module)
 
-    def register_plugin_commands(self, plugin_module, plugin_name):
+    def register_plugin_commands(self, plugin_module):
         for item_name in dir(plugin_module):
             item = getattr(plugin_module, item_name)
-            if isinstance(item, type) and issubclass(item, Command) and item is not Command:
-                # Command names are now explicitly set to the plugin's folder name
-                self.command_handler.register_command(plugin_name, item())
-                logging.info(f"Command '{plugin_name}' from plugin '{plugin_name}' registered.")
+            if inspect.isclass(item) and issubclass(item, Command) and item is not Command and not inspect.isabstract(item):
+                # This ensures we're only instantiating non-abstract subclasses of Command
+                command_instance = item()
+                self.command_handler.register_command(command_instance.name, command_instance)
 
     def start(self):
         # Register commands here

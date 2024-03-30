@@ -2,6 +2,10 @@ from app.commands import Command
 import math
 
 class SqrtCommand(Command):
+    def __init__(self):
+        super().__init__()
+        self.name="sqrt"
+
     def execute(self, *args):
         try:
             number = float(args[0])

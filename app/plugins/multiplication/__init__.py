@@ -1,6 +1,10 @@
 from app.commands import Command
 
 class MultiplyCommand(Command):
+    def __init__(self):
+        super().__init__()
+        self.name="multiply"
+
     def execute(self, *args):
         try:
             # Convert args to floats and perform multiplication

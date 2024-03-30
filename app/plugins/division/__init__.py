@@ -1,6 +1,10 @@
 from app.commands import Command
 
 class DivideCommand(Command):
+    def __init__(self):
+        super().__init__()
+        self.name="divide"
+
     def execute(self, *args):
         try:
             if float(args[1]) == 0:
