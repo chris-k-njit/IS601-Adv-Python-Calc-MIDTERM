@@ -3,8 +3,7 @@ import csv
 import pkgutil
 import importlib
 import sys
-from app.commands import CommandHandler
-from app.commands import Command
+from app.commands import Command, CommandHandler
 from dotenv import load_dotenv
 import logging
 import logging.config
