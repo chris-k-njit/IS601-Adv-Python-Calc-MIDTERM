@@ -1,7 +1,7 @@
 from app.commands import Command
 import logging
 
-class CalculatorHistory(Command):
+class CalculatorHistoryCommand(Command):
     """
     Handles actions related to the calculation history, including viewing, clearing, saving,
     loading, and deleting history entries.

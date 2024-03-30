@@ -1,6 +1,6 @@
 ''' Test all commands here '''
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch#, mock_open
 from app.plugins.addition import AddCommand
 from app.plugins.subtraction import SubtractCommand
 from app.plugins.multiplication import MultiplyCommand
@@ -10,6 +10,7 @@ from app.plugins.greet import GreetCommand
 from app.plugins.goodbye import ByeCommand
 from app.plugins.caffeine import CaffeineCommand
 from app.plugins.help import HelpCommand
+# from app.plugins.calculation_history import CalculatorHistoryCommand
 
 class TestCalculatorCommands(unittest.TestCase):
     ''' Test all commands'''
@@ -58,5 +59,17 @@ class TestCalculatorCommands(unittest.TestCase):
         HelpCommand().execute()
         mock_print.assert_called_with("Available commands here are: addition, subtraction, multiplication, division, squareroot, greet, goodbye, caffeine, help\nUse 'exit' to quit the application.")
 
-# if __name__ == '__main__':
+#     @patch('builtins.print')
+#     @patch('builtins.input', side_effect=['1', 'exit'])  # Assuming '1' selects an option, 'exit' returns to the main menu
+#     def test_calculation_history_command(self, mock_input, mock_print):
+#         '''Test the calculation history command'''
+#         CalculatorHistoryCommand().execute()
+#         expected_calls = [
+#             # Mock print calls you expect based on the '1' input and then 'exit'.
+#             # For instance, if '1' should print the latest calculation, but since
+#             # there might be no calculations yet, it could print a specific message.
+#             # Add calls to mock_print.assert_has_calls with the expected messages.
+#         ]
+#         mock_print.assert_has_calls(expected_calls, any_order=True)
+# # if __name__ == '__main__':
 #     unittest.main()
