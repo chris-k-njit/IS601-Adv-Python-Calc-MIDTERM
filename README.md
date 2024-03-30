@@ -60,11 +60,21 @@ class App:
         csv_filepath = os.path.join(data_dir, csv_filename)
         ...
 ```
-- Singleton Pattern
-More details soon...
+- Singleton Pattern - I believe this directly relates to singleton pattern, as this class has only once instance and has global access in the app.
+```python
+    class ListHandler(logging.Handler):
+    """ List Handler
+    Handle logging
+    """
+    def __init__(self):
+        super().__init__()
+        self.log_records = []
 
-- Strategy Pattern
-1. CommandHandler class here will execute commands, after taking in the user input.
+    def emit(self, record):
+        self.log_records.append(record)
+```
+
+- Strategy Pattern - CommandHandler class here will execute commands, after taking in the user input.
 ```python
 class CommandHandler:
     def execute_command(self, cmd_input):
@@ -111,5 +121,5 @@ class CommandHandler:
         pass
 ```
 
-## Video Walkthrough - 5 Minute Walkthrough of my Code 
+## Video Walkthrough - 5 Minute (Or Fewer) Video Walkthrough of my Code 
 Posting Video tonight, after all tests passed and code is complete.
