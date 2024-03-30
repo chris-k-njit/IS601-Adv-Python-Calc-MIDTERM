@@ -13,7 +13,9 @@ More details soon...
 ![ENV Variables](images/ENV_VAR_SETUP.png)
 
 ## Using Logging to Record Interactions within Calculator
-More details soon...
+1. As seen in screenshot below from my app log file, I was able to record interactions a user might have with the calculator.
+
+![APP LOG](images/applog.png)
 
 ## Demonstrate Design Patterns
 - Command Pattern
